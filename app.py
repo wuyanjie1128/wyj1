@@ -144,23 +144,20 @@ def generate_poster(seed=42, n_layers=9, wobble_min=0.12, wobble_max=0.28):
             transform=ax.transAxes, color=(0.22, 0.22, 0.28))
     return fig
 
-# ----------------------------------------------------------
-# 5) Streamlit UI
-# ----------------------------------------------------------
 st.set_page_config(page_title="🎨 Generative Abstract Poster", layout="centered")
 st.title("🎨 Generative Abstract Poster")
-st.write("使用滑块与输入调整参数，然后生成具有线条感与丰富色彩的抽象艺术海报。")
+st.write("Adjust parameters to generate an abstract art poster with lines and rich colors.")
 
 col1, col2 = st.columns(2)
 with col1:
-    seed = st.number_input("Seed (随机种子)", min_value=0, max_value=9999, value=42, step=1)
-    n_layers = st.slider("层数 (n_layers)", 3, 15, 9)
+    seed = st.number_input("Seed", min_value=0, max_value=9999, value=42, step=1)
+    n_layers = st.slider("Number of Layers", 3, 15, 9)
 with col2:
-    wobble_min = st.slider("最小波动 (wobble_min)", 0.05, 0.25, 0.12)
-    wobble_max = st.slider("最大波动 (wobble_max)", 0.15, 0.45, 0.28)
+    wobble_min = st.slider("Minimum Wobble", 0.05, 0.25, 0.12)
+    wobble_max = st.slider("Maximum Wobble", 0.15, 0.45, 0.28)
 
-if st.button("生成海报"):
+if st.button("Generate Poster"):
     fig = generate_poster(seed=seed, n_layers=n_layers,
                           wobble_min=wobble_min, wobble_max=wobble_max)
     st.pyplot(fig)
-    st.success("✅ 海报已生成！可右键保存或截图。")
+    st.success("✅ Poster generated! Right-click to save or take a screenshot.")
